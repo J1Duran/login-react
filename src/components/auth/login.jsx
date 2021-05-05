@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 export const Login = (props) => {
   const history = useHistory();
+  const API_URL = process.env.REACT_APP_API_URL;
   const {
     register,
     handleSubmit,
@@ -18,16 +19,13 @@ export const Login = (props) => {
   });
 
   const callAPI = (credentials) => {
-    const result = fetch(
-      "https://api-int.cryptobucksapp.com/api/v1/auth/sign-in",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      }
-    )
+    const result = fetch(API_URL + "auth/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    })
       .then(
         (data) => data.json(),
         (error) => error
